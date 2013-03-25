@@ -3,41 +3,49 @@ vows = require 'vows'
 noflo = require 'noflo'
 {_} = require 'underscore'
 
-buildTopic = (instance, inCommands, outCommands) ->
-  inSockets = {}
-  outSockets = {}
+attachSockets = (topic, instance, inCommands, outCommands) ->
   for command in inCommands
-    continue if inSockets[command.port]
-    inSockets[command.port] = noflo.internalSocket.createSocket()
-    instance.inPorts[command.port].attach inSockets[command.port]
+    continue if topic.inSockets[command.port]
+    topic.inSockets[command.port] = noflo.internalSocket.createSocket()
+    instance.inPorts[command.port].attach topic.inSockets[command.port]
   for command in outCommands
-    continue if outSockets[command.port]
-    outSockets[command.port] = noflo.internalSocket.createSocket()
-    instance.outPorts[command.port].attach outSockets[command.port]
+    continue if topic.outSockets[command.port]
+    topic.outSockets[command.port] = noflo.internalSocket.createSocket()
+    instance.outPorts[command.port].attach topic.outSockets[command.port]
 
-  topic =
-    instance: instance
-    inSockets: inSockets
-    outSockets: outSockets
-    results: []
+subscribeOutports = (callback, topic, outCommands) ->
+  done = _.after outCommands.length, ->
+    callback null, topic
 
+  listened = {}
+  outCommands.forEach (command) ->
+    listened[command.port] = {} unless listened[command.port]
+    return if listened[command.port][command.cmd]
+    port = topic.outSockets[command.port]
+    port.on command.cmd, (value) ->
+      topic.results.push
+        port: command.port
+        cmd: command.cmd
+        data: value
+      done()
+    listened[command.port][command.cmd] = true
+
+sendCommands = (topic, inCommands) ->
+  inCommands.forEach (command) ->
+    func = topic.inSockets[command.port][command.cmd]
+    func.apply topic.inSockets[command.port], command.args
+
+buildTopic = (getInstance, inCommands, outCommands) ->
   return ->
-    done = _.after outCommands.length, =>
-      @callback null, topic
-
-    outCommands.forEach (command) ->
-      port = topic.outSockets[command.port]
-      port.on command.cmd, (value) ->
-        topic.results.push
-          port: command.port
-          cmd: command.cmd
-          data: value
-        done()
-
-    inCommands.forEach (command) ->
-      func = topic.inSockets[command.port][command.cmd]
-      func.apply topic.inSockets[command.port], command.args
-    return undefined
+    callback = @callback
+    getInstance (instance) ->
+      topic =
+        inSockets: {}
+        outSockets: {}
+        results: []
+      attachSockets topic, instance, inCommands, outCommands
+      subscribeOutports callback, topic, outCommands
+      sendCommands topic, inCommands
 
 buildTests = (outCommands) ->
   return (err, topic) ->
@@ -55,6 +63,8 @@ class ComponentSuite
     @suite = vows.describe @name
     @discussion = []
     @batches = []
+    @loader = new noflo.ComponentLoader process.cwd()
+    @loader.listComponents ->
 
   discuss: (text) ->
     @discussion.push
@@ -117,8 +127,11 @@ class ComponentSuite
     current[group] = [] unless current[group]
     current[group]
 
-  getInstance: ->
-    return @customGetInstance()
+  getInstance: (callback) =>
+    if @customGetInstance
+      callback @customGetInstance()
+      return
+    @loader.load @name, callback
 
   next: ->
     return if @discussion.length is 0
@@ -136,8 +149,7 @@ class ComponentSuite
         return
 
       # We have stuff to run
-      instance = @getInstance()
-      context.topic = buildTopic instance, inCommands, discussion.outPorts
+      context.topic = buildTopic @getInstance, inCommands, discussion.outPorts
       context[discussion.context] = buildTests discussion.outPorts
 
     @batches.push batch
