@@ -3,7 +3,7 @@
   "description": "NoFlo component testing library",
   "version": "0.0.1",
   "dependencies": {
-    "vows": "0.6.x",
+    "vows": "0.7.x",
     "coffee-script": "1.6.x",
     "underscore": "1.4.x",
     "noflo": "0.3.x"
