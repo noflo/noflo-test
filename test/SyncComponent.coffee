@@ -1,4 +1,4 @@
-test = require '../lib/test.coffee'
+test = require '../index'
 noflo = require 'noflo'
 
 class Multiplier extends noflo.Component
