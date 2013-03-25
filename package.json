@@ -8,5 +8,12 @@
     "underscore": "1.4.x",
     "noflo": "0.3.x"
   },
-  "main": "./index.js"
+  "devDependencies": {
+    "coffeelint": "*"
+  },
+  "main": "./index.js",
+  "scripts":    {
+    "pretest": "./node_modules/.bin/coffeelint -r lib",
+    "test": "./node_modules/.bin/vows --spec test/*.coffee"
+  }
 }
