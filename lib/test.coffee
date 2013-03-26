@@ -155,6 +155,7 @@ class ComponentSuite
     @batches.push batch
     @suite.addBatch batch
     @discussion = []
+    @
 
   # Export to external Vows runner
   export: (target) ->
