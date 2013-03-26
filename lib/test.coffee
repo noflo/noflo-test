@@ -65,6 +65,8 @@ class ComponentSuite
     @batches = []
     @loader = new noflo.ComponentLoader process.cwd()
     @loader.listComponents ->
+    @send.suite = @
+    @receive.suite = @
 
   discuss: (text) ->
     @discussion.push
@@ -77,50 +79,81 @@ class ComponentSuite
     @discussion.pop()
     @
 
-  connect: (port) ->
-    commands = @ensure 'inPorts'
-    commands.push
-      port: port
-      cmd: 'connect'
-    @
+  send:
+    connect: (port) ->
+      commands = @suite.ensure 'inPorts'
+      commands.push
+        port: port
+        cmd: 'connect'
+      @suite
 
-  beginGroup: (port, group) ->
-    commands = @ensure 'inPorts'
-    commands.push
-      port: port
-      cmd: 'beginGroup'
-      args: [group]
-    @
+    beginGroup: (port, group) ->
+      commands = @suite.ensure 'inPorts'
+      commands.push
+        port: port
+        cmd: 'beginGroup'
+        args: [group]
+      @suite
 
-  send: (port, data) ->
-    commands = @ensure 'inPorts'
-    commands.push
-      port: port
-      cmd: 'send'
-      args: [data]
-    @
+    data: (port, data) ->
+      commands = @suite.ensure 'inPorts'
+      commands.push
+        port: port
+        cmd: 'send'
+        args: [data]
+      @suite
 
-  endGroup: (port) ->
-    commands = @ensure 'inPorts'
-    commands.push
-      port: port
-      cmd: 'endGroup'
-    @
+    endGroup: (port) ->
+      commands = @suite.ensure 'inPorts'
+      commands.push
+        port: port
+        cmd: 'endGroup'
+      @suite
 
-  disconnect: (port) ->
-    commands = @ensure 'inPorts', port
-    commands.push
-      port: port
-      cmd: 'disconnect'
-    @
+    disconnect: (port) ->
+      commands = @suite.ensure 'inPorts', port
+      commands.push
+        port: port
+        cmd: 'disconnect'
+      @suite
 
-  receive: (port, data, group) ->
-    commands = @ensure 'outPorts'
-    commands.push
-      port: port
-      cmd: 'data'
-      data: data
-    @
+  receive:
+    connect: (port) ->
+      commands = @suite.ensure 'outPorts'
+      commands.push
+        port: port
+        cmd: 'connect'
+      @suite
+
+    beginGroup: (port, group) ->
+      commands = @suite.ensure 'outPorts'
+      commands.push
+        port: port
+        cmd: 'begingroup'
+        group: group
+      @suite
+
+    data: (port, data) ->
+      commands = @suite.ensure 'outPorts'
+      commands.push
+        port: port
+        cmd: 'data'
+        data: data
+      @suite
+
+    endGroup: (port) ->
+      commands = @suite.ensure 'outPorts'
+      commands.push
+        port: port
+        cmd: 'endgroup'
+      @suite
+
+    disconnect: (port) ->
+      commands = @suite.ensure 'outPorts'
+      commands.push
+        port: port
+        cmd: 'disconnect'
+      @suite
 
   ensure: (group) ->
     current = @discussion[@discussion.length - 1]

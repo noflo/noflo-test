@@ -55,23 +55,23 @@ Describe a scenario. NoFlo tests are usually provided in a structure where you f
 
 Once you have described a scenario using the *discuss* method, you can register a set of input commands to be sent. These will be stored into a queue and run in the order they were registered.
 
-**suite.connect(port)**
+**suite.send.connect(port)**
 
 Register a connection event for a given input port.
 
-**suite.beginGroup(port, group)**
+**suite.send.beginGroup(port, group)**
 
 Register a new group bracket event to a given input port.
 
-**suite.send(port, data)**
+**suite.send.data(port, data)**
 
 Register data to be sent to a given input port.
 
-**suite.endGroup(port)**
+**suite.send.endGroup(port)**
 
 Register an ending of group bracket to a given input port.
 
-**suite.disconnect(port)**
+**suite.send.disconnect(port)**
 
 Regiter a disconnection event for a given input port.
 
@@ -79,7 +79,7 @@ Regiter a disconnection event for a given input port.
 
 Once you have set up the desired inputs for a scenario, you should use *discuss* to describe the desired output. Then you can register the output events you want to see happen:
 
-**suite.receive(port, data)**
+**suite.receive.data(port, data)**
 
 Expect to receive matching data from the output port.
 
