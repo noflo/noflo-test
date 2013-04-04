@@ -50,6 +50,7 @@ buildTopic = (getInstance, inCommands, outCommands) ->
 buildTests = (outCommands) ->
   return (err, topic) ->
     throw err if err
+    throw topic if topic instanceof Error
     throw new Error "no results" unless topic.results
     outCommands.forEach (command) ->
       received = topic.results.shift()
