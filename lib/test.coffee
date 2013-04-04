@@ -70,7 +70,6 @@ class ComponentSuite
     else
       @baseDir = process.cwd()
     @loader = new noflo.ComponentLoader @baseDir
-    @loader.listComponents ->
     @send.suite = @
     @receive.suite = @
 
