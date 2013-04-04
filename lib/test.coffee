@@ -63,7 +63,12 @@ class ComponentSuite
     @suite = vows.describe @name
     @discussion = []
     @batches = []
-    @loader = new noflo.ComponentLoader process.cwd()
+
+    if process.env.NOFLO_TEST_BASEDIR
+      @baseDir = process.env.NOFLO_TEST_BASEDIR
+    else
+      @baseDir = process.cwd()
+    @loader = new noflo.ComponentLoader @baseDir
     @loader.listComponents ->
     @send.suite = @
     @receive.suite = @
