@@ -17,6 +17,6 @@
   },
   "scripts":    {
     "pretest": "./node_modules/.bin/coffeelint -r lib",
-    "test": "./node_modules/.bin/vows --spec test/*.coffee"
+    "test": "./bin/noflo-test --spec test/*.coffee"
   }
 }
