@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+// vim: set ft=javascript:
+var path = require('path');
+
+// Find out where Vows is installed
+var vowsPath = path.dirname(require.resolve('vows'));
+var vowsBin = path.resolve(vowsPath, '../bin/vows');
+
+// Allow requiring files without the .js extension
+require.extensions[''] = require.extensions['.js'];
+
+// Execute it
+require(vowsBin);

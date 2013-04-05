@@ -1,7 +1,7 @@
 {
   "name": "noflo-test",
   "description": "NoFlo component testing library",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "vows": "0.7.x",
     "coffee-script": "1.6.x",
@@ -12,6 +12,9 @@
     "coffeelint": "*"
   },
   "main": "./index.js",
+  "bin": {
+    "noflo-test": "./bin/noflo-test"
+  },
   "scripts":    {
     "pretest": "./node_modules/.bin/coffeelint -r lib",
     "test": "./node_modules/.bin/vows --spec test/*.coffee"

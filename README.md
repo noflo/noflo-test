@@ -10,7 +10,6 @@ Most NoFlo components are designed to be reusable between different projects, an
 Add noflo-test and [Vows](http://vowsjs.org) into your component's development dependencies:
 
     "devDependencies": {
-      "vows": "0.7.x",
       "noflo-test": "0.0.x",
       "coffeelint": "*"
     }
@@ -101,7 +100,7 @@ There are many test frameworks for Node.js, each with their own way of being inv
 
     "scripts":    {
       "pretest": "./node_modules/.bin/coffeelint -r components",
-      "test": "./node_modules/.bin/vows --spec test/*.coffee"
+      "test": "./node_modules/.bin/noflo-test --spec test/*.coffee"
     }
 
 Now running:
