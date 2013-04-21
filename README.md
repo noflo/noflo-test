@@ -24,10 +24,10 @@ Here is an example test file against the NoFlo core component *SplitArray*:
 
     test.component('SplitArray').
       discuss('When receiving an array with two cells').
-        send('in', ['foo', 'bar']).
+        send.data('in', ['foo', 'bar']).
         discuss('Each cell should be sent out as a separate package').
-          receive('out', 'foo').
-          receive('out', 'bar').
+          receive.data('out', 'foo').
+          receive.data('out', 'bar').
     export module
 
 In a typical case, this is all you need to test a component!
