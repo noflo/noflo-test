@@ -54,10 +54,10 @@ buildTests = (outCommands) ->
     throw new Error "no results" unless topic.results
     outCommands.forEach (command) ->
       received = topic.results.shift()
-      assert.equal received.port, command.port
-      assert.equal received.cmd, command.cmd
+      assert.deepEqual received.port, command.port
+      assert.deepEqual received.cmd, command.cmd
       if command.data
-        assert.equal received.data, command.data
+        assert.deepEqual received.data, command.data
 
 class ComponentSuite
   constructor: (@name, @customGetInstance) ->
