@@ -11,7 +11,7 @@ Add noflo-test and [Vows](http://vowsjs.org) into your component's development d
 
     "devDependencies": {
       "noflo-test": "0.0.x",
-      "coffeelint": "*"
+      "vows": "*"
     }
 
 Then run *npm install*.
