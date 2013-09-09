@@ -9,13 +9,14 @@
     "noflo": "~0.4.0"
   },
   "devDependencies": {
-    "coffeelint": "*"
+    "coffeelint": "*",
+    "noflo-objects": "~0.1.2"
   },
   "main": "./index.js",
   "bin": {
     "noflo-test": "./bin/noflo-test"
   },
-  "scripts":    {
+  "scripts": {
     "pretest": "./node_modules/.bin/coffeelint -r lib",
     "test": "./bin/noflo-test --spec test/*.coffee"
   }
