@@ -1,7 +1,7 @@
 {
   "name": "noflo-test",
   "description": "NoFlo component testing library",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
     "vows": "0.7.x",
     "coffee-script": "1.6.x",
