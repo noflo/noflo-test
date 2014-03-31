@@ -1,4 +1,4 @@
-NoFlo Component Tester
+NoFlo Component Tester [![Build Status](https://travis-ci.org/noflo/noflo-test.svg?branch=master)](https://travis-ci.org/noflo/noflo-test)
 =====================
 
 This library provides a fluent, chainable API for testing [NoFlo](http://noflojs.org) components in an easy manner. It is inspired by the [api-easy](http://flatiron.github.com/api-easy) library for testing RESTful APIs.
