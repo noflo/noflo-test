@@ -28,13 +28,14 @@ class AsyncMultiplier extends noflo.AsyncComponent
     , timeOut
 
 suite = test.component 'AsyncMultiplier', -> new AsyncMultiplier
-suite.discuss 'Using the default multiplier'
-suite.discuss 'Should transmit 8 when receiving 4'
+
+suite.describe 'Using the default multiplier'
+suite.it 'Should transmit 8 when receiving 4'
 suite.send.data 'in', 4
 suite.receive.data 'out', 8
-suite.next()
-suite.discuss 'Using a custom multiplier'
-suite.discuss 'Should transmit 3 when receiving 2'
+
+suite.describe 'Using a custom multiplier'
+suite.it 'Should transmit 3 when receiving 2'
 suite.send.data 'by', 1.5
 suite.send.data 'in', 2
 suite.receive.data 'out', 3

@@ -2,12 +2,12 @@
 // vim: set ft=javascript:
 var path = require('path');
 
-// Find out where Vows is installed
-var vowsPath = path.dirname(require.resolve('vows'));
-var vowsBin = path.resolve(vowsPath, '../bin/vows');
+// Find out where Mocha is installed
+var mochaPath = path.dirname(require.resolve('mocha'));
+var mochaBin = path.resolve(mochaPath, './bin/mocha');
 
 // Allow requiring files without the .js extension
 require.extensions[''] = require.extensions['.js'];
 
 // Execute it
-require(vowsBin);
+require(mochaBin);

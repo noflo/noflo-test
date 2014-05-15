@@ -1,5 +1,4 @@
 assert = require 'assert'
-vows = require 'vows'
 noflo = require 'noflo'
 {_} = require 'underscore'
 
@@ -35,7 +34,7 @@ sendCommands = (topic, inCommands) ->
     func = topic.inSockets[command.port][command.cmd]
     func.apply topic.inSockets[command.port], command.args
 
-buildTopic = (getInstance, inCommands, outCommands) ->
+buildTestCase = (getInstance, inCommands, outCommands) ->
   return ->
     callback = @callback
     getInstance (instance) ->
@@ -60,8 +59,9 @@ buildTests = (outCommands) ->
         assert.deepEqual received.data, command.data
 
 class ComponentSuite
-  constructor: (@name, @customGetInstance) ->
-    @suite = vows.describe @name
+  constructor: (@subject, @customGetInstance) ->
+    @spec = []
+    @describe @subject
     @discussion = []
     @batches = []
 
@@ -73,9 +73,14 @@ class ComponentSuite
     @send.suite = @
     @receive.suite = @
 
-  discuss: (text) ->
-    @discussion.push
+  describe: (text) ->
+    @spec.push
       context: text
+    @
+
+  it: (text) ->
+    @spec.push
+      predicate: text
       inPorts: []
       outPorts: []
     @
@@ -161,7 +166,7 @@ class ComponentSuite
       @suite
 
   ensure: (group) ->
-    current = @discussion[@discussion.length - 1]
+    current = @spec[@spec.length - 1]
     current[group] = [] unless current[group]
     current[group]
 
@@ -169,44 +174,29 @@ class ComponentSuite
     if @customGetInstance
       callback @customGetInstance()
       return
-    @loader.load @name, callback
+    @loader.load @subject, callback
 
-  next: ->
-    return if @discussion.length is 0
-    batch = {}
-    context = batch
-    inCommands = []
-    @discussion.forEach (discussion) =>
-      for command in discussion.inPorts
-        inCommands.push command
-
-      if discussion.outPorts.length is 0
-        # No expected returns, just keep building context
-        context[discussion.context] = {}
-        context = context[discussion.context]
-        return
-
-      # We have stuff to run
-      context.topic = buildTopic @getInstance, inCommands, discussion.outPorts
-      context[discussion.context] = buildTests discussion.outPorts
-
-    @batches.push batch
-    @suite.addBatch batch
-    @discussion = []
-    @
-
-  # Export to external Vows runner
+  # Export to external Mocha runner
   export: (target) ->
-    @next()
-    @suite.export target
-    @
+    return if @spec.length is 0
 
-  run: (options, callback) ->
-    @next()
-    unless callback
-      callback = options
-      options = {}
-    @suite.run options, callback
+    spec = {}
+    block = spec
+    nestedBlock = block
+    previousItem = null
+
+    for item, index in @spec
+      if item.context
+        nestedBlock = block if previousItem?.context
+        block = nestedBlock[item.context] = {}
+      else
+        inCommands = (command for command in item.inPorts)
+        testCase = buildTestCase @getInstance, inCommands, item.outPorts
+        block[item.predicate] = testCase
+
+      previousItem = item
+
+    target.exports = spec
     @
 
 # Main entry point into the library. Describe a component
