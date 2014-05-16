@@ -7,11 +7,10 @@ Most NoFlo components are designed to be reusable between different projects, an
 
 ## Installation
 
-Add noflo-test and [Vows](http://vowsjs.org) into your component's development dependencies:
+Add noflo-test into your component's development dependencies:
 
     "devDependencies": {
-      "noflo-test": "0.0.x",
-      "vows": "*"
+      "noflo-test": "0.0.x"
     }
 
 Then run *npm install*.
@@ -23,9 +22,9 @@ Here is an example test file against the NoFlo core component *SplitArray*:
     test = require 'noflo-test'
 
     test.component('SplitArray').
-      discuss('When receiving an array with two cells').
+      describe('When receiving an array with two cells').
         send.data('in', ['foo', 'bar']).
-        discuss('Each cell should be sent out as a separate package').
+        it('Should send each cell out as a separate package').
           receive.data('out', 'foo').
           receive.data('out', 'bar').
     export module
@@ -46,13 +45,16 @@ In case of custom setups you can also provide an optional second argument, which
 
 ### Test suite methods
 
-**suite.discuss(description)**
+**suite.describe(description)**
 
-Describe a scenario. NoFlo tests are usually provided in a structure where you first *discuss* the environment, then provide input arguments, then *discuss* the desirable outputs, and then provide them.
+Describe a scenario. NoFlo tests are usually provided in a structure where you first *describe* the environment, then provide input arguments, then discuss the desirable outputs using *it*, and then provide them.
+
+**suite.it(predicate)**
+Describe an expectation in the form, "it should..."
 
 #### Input commands
 
-Once you have described a scenario using the *discuss* method, you can register a set of input commands to be sent. These will be stored into a queue and run in the order they were registered.
+Once you have described a scenario using the *describe* method, you can register a set of input commands to be sent. These will be stored into a queue and run in the order they were registered.
 
 **suite.send.connect(port)**
 
@@ -76,23 +78,20 @@ Regiter a disconnection event for a given input port.
 
 #### Output commands
 
-Once you have set up the desired inputs for a scenario, you should use *discuss* to describe the desired output. Then you can register the output events you want to see happen:
+Once you have set up the desired inputs for a scenario, you should use *it* to describe the desired output. Then you can register the output events you want to see happen:
 
 **suite.receive.data(port, data)**
 
 Expect to receive matching data from the output port.
 
 #### Ending a scenario
+Using **describe** after **it** ends the current scenario so that you can start describing a new one from scratch. No data is shared between scenarios.
 
-**suite.next()**
-
-Ends the current scenario so that you can start describing a new one from scratch. No data is shared between scenarios.
-
-#### Exposing your tests to Vows
+#### Exposing your tests
 
 **suite.export(module)**
 
-Expose the tests to the Vows test runner.
+Expose the tests to the test runner.
 
 ## Running tests
 
@@ -100,7 +99,7 @@ There are many test frameworks for Node.js, each with their own way of being inv
 
     "scripts":    {
       "pretest": "./node_modules/.bin/coffeelint -r components",
-      "test": "./node_modules/.bin/noflo-test --spec test/*.coffee"
+      "test": "./bin/noflo-test test --compilers coffee:coffee-script/register --reporter spec --ui exports"
     }
 
 Now running:
