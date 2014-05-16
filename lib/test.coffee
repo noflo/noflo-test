@@ -46,24 +46,10 @@ buildTestCase = (getInstance, inCommands, outCommands) ->
       subscribeOutports callback, topic, outCommands
       sendCommands topic, inCommands
 
-buildTests = (outCommands) ->
-  return (err, topic) ->
-    throw err if err
-    throw topic if topic instanceof Error
-    throw new Error "no results" unless topic.results
-    outCommands.forEach (command) ->
-      received = topic.results.shift()
-      assert.deepEqual received.port, command.port
-      assert.deepEqual received.cmd, command.cmd
-      if command.data
-        assert.deepEqual received.data, command.data
-
 class ComponentSuite
   constructor: (@subject, @customGetInstance) ->
     @spec = []
     @describe @subject
-    @discussion = []
-    @batches = []
 
     if process.env.NOFLO_TEST_BASEDIR
       @baseDir = process.env.NOFLO_TEST_BASEDIR
@@ -83,10 +69,6 @@ class ComponentSuite
       predicate: text
       inPorts: []
       outPorts: []
-    @
-
-  undiscuss: ->
-    @discussion.pop()
     @
 
   send:
