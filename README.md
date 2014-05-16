@@ -86,7 +86,8 @@ Once you have set up the desired inputs for a scenario, you should use *it* to d
 Expect to receive matching data from the output port.
 
 #### Ending a scenario
-Using **describe** after **it** ends the current scenario so that you can start describing a new one from scratch. No data is shared between scenarios.
+
+Using *describe* after *it* ends the current scenario so that you can start describing a new one from scratch. No data is shared between scenarios.
 
 #### Exposing your tests
 
