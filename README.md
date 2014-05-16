@@ -50,6 +50,7 @@ In case of custom setups you can also provide an optional second argument, which
 Describe a scenario. NoFlo tests are usually provided in a structure where you first *describe* the environment, then provide input arguments, then discuss the desirable outputs using *it*, and then provide them.
 
 **suite.it(predicate)**
+
 Describe an expectation in the form, "it should..."
 
 #### Input commands
