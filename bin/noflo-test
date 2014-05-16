@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // vim: set ft=javascript:
+var childProcess = require('child_process');
 var path = require('path');
 
 // Find out where Mocha is installed
@@ -10,4 +11,19 @@ var mochaBin = path.resolve(mochaPath, './bin/mocha');
 require.extensions[''] = require.extensions['.js'];
 
 // Execute it
-require(mochaBin);
+var runner = childProcess.spawn(mochaBin, [
+  '--compilers', 'coffee:coffee-script/register',
+  '--reporter', 'spec',
+  '--ui', 'exports']);
+
+runner.stdout.setEncoding('utf8');
+runner.stderr.setEncoding('utf8');
+
+runner.stdout.on('data', function(data) {
+  process.stdout.write(data);
+});
+
+runner.stderr.on('data', function(data) {
+  process.stdout.write(data);
+});
+

@@ -99,7 +99,7 @@ There are many test frameworks for Node.js, each with their own way of being inv
 
     "scripts":    {
       "pretest": "./node_modules/.bin/coffeelint -r components",
-      "test": "./bin/noflo-test test --compilers coffee:coffee-script/register --reporter spec --ui exports"
+      "test": "./bin/noflo-test test"
     }
 
 Now running:

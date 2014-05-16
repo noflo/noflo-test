@@ -18,6 +18,6 @@
   },
   "scripts": {
     "pretest": "./node_modules/.bin/coffeelint -r lib",
-    "test": "./bin/noflo-test test --compilers coffee:coffee-script/register --reporter spec --ui exports"
+    "test": "./bin/noflo-test test"
   }
 }
