@@ -11,14 +11,16 @@
   },
   "devDependencies": {
     "coffeelint": "*",
-    "noflo-objects": "~0.1.2"
+    "noflo-objects": "~0.1.2",
+    "grunt": "^0.4.5",
+    "grunt-coffeelint": "0.0.10",
+    "grunt-cafe-mocha": "^0.1.12"
   },
   "main": "./index.js",
   "bin": {
     "noflo-test": "./bin/noflo-test"
   },
   "scripts": {
-    "pretest": "./node_modules/.bin/coffeelint -r lib",
     "test": "./bin/noflo-test test"
   }
 }
