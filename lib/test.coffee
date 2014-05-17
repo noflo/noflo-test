@@ -1,7 +1,6 @@
 assert = require 'assert'
 noflo = require 'noflo'
 {_} = require 'underscore'
-
 attachSockets = (topic, instance, inCommands, outCommands) ->
   for command in inCommands
     continue if topic.inSockets[command.port]
@@ -35,8 +34,7 @@ sendCommands = (topic, inCommands) ->
     func.apply topic.inSockets[command.port], command.args
 
 buildTestCase = (getInstance, inCommands, outCommands) ->
-  return ->
-    callback = @callback
+  return (callback) ->
     getInstance (instance) ->
       topic =
         inSockets: {}
@@ -156,7 +154,8 @@ class ComponentSuite
     if @customGetInstance
       callback @customGetInstance()
       return
-    @loader.load @subject, callback
+    @loader.load @subject, (instance) ->
+      callback instance
 
   # Export to external Mocha runner
   export: (target) ->
@@ -167,12 +166,14 @@ class ComponentSuite
     nestedBlock = block
     previousItem = null
 
-    for item, index in @spec
+    for item in @spec
       if item.context
         nestedBlock = block if previousItem?.context
         block = nestedBlock[item.context] = {}
       else
         inCommands = (command for command in item.inPorts)
+        if previousItem.context and previousItem.inPorts?.length
+          inCommands = previousItem.inPorts.concat inCommands
         testCase = buildTestCase @getInstance, inCommands, item.outPorts
         block[item.predicate] = testCase
 
