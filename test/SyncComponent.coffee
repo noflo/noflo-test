@@ -4,9 +4,11 @@ noflo = require 'noflo'
 class Multiplier extends noflo.Component
   constructor: ->
     @by = 2
-    @inPorts =
-      in: new noflo.Port 'number'
-      by: new noflo.Port 'number'
+    @inPorts = new noflo.InPorts
+      in:
+        datatype: 'number'
+      by:
+        datatype: 'number'
 
     @outPorts =
       out: new noflo.Port 'number'
