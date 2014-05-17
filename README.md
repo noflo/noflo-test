@@ -134,9 +134,7 @@ To do so, login to the Travis website, and enable it for your repository. Then a
 
     language: node_js
     node_js:
-      - 0.6
-      - 0.8
-      - 0.10
+      - "0.10"
     script: npm test
 
 Now each time you push your project to GitHub it will be automatically tested on Travis against various different Node.js versions (tune the version numbers in the file according to your needs).
