@@ -26,31 +26,32 @@ class Multiplier extends noflo.Component
       @by = data
 
 suite = test.component 'Multiplier', -> new Multiplier
-suite.discuss 'Using the default multiplier'
+
+suite.describe 'Using the default multiplier'
 suite.send.data 'in', 4
-suite.discuss 'Should transmit 8 when receiving 4'
+suite.it 'Should transmit 8 when receiving 4'
 suite.receive.data 'out', 8
-suite.next()
-suite.discuss 'Using a custom multiplier'
+
+suite.describe 'Using a custom multiplier'
 suite.send.data 'by', 1.5
 suite.send.data 'in', 2
-suite.discuss 'Should transmit 3 when receiving 2'
+suite.it 'Should transmit 3 when receiving 2'
 suite.receive.data 'out', 3
-suite.next()
-suite.discuss 'Sending connection and disconnection events'
+
+suite.describe 'Sending connection and disconnection events'
 suite.send.connect 'in'
 suite.send.disconnect 'in'
-suite.discuss 'Should result in connect and disconnect events'
+suite.it 'Should result in connect and disconnect events'
 suite.receive.connect 'out'
 suite.receive.disconnect 'out'
-suite.next()
-suite.discuss 'Sending grouped and ungrouped data'
+
+suite.describe 'Sending grouped and ungrouped data'
 suite.send.beginGroup 'in', 'Foo'
 suite.send.data 'in', 1
 suite.send.endGroup 'in'
 suite.send.data 'in', 2
 suite.send.disconnect 'in'
-suite.discuss 'Should result in similarly grouped results'
+suite.it 'Should result in similarly grouped results'
 suite.receive.beginGroup 'out', 'Foo'
 suite.receive.data 'out', 2
 suite.receive.endGroup 'out'
