@@ -1,6 +1,6 @@
-assert = require 'assert'
 noflo = require 'noflo'
 {_} = require 'underscore'
+chai = require 'chai'
 attachSockets = (topic, instance, inCommands, outCommands) ->
   for command in inCommands
     continue if topic.inSockets[command.port]
@@ -13,6 +13,15 @@ attachSockets = (topic, instance, inCommands, outCommands) ->
 
 subscribeOutports = (callback, topic, outCommands) ->
   done = _.after outCommands.length, ->
+    for command in outCommands
+      result = topic.results.shift()
+      chai.expect(result.port).to.equal command.port
+      chai.expect(result.cmd).to.equal command.cmd
+      continue unless command.data
+      if typeof command.data is 'function'
+        command.data result.data, chai
+        continue
+      chai.expect(result.data).to.equal command.data
     callback null, topic
 
   listened = {}
@@ -120,7 +129,7 @@ class ComponentSuite
       commands.push
         port: port
         cmd: 'begingroup'
-        group: group
+        data: group
       @suite
 
     data: (port, data) ->

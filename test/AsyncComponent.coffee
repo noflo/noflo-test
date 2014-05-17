@@ -38,6 +38,7 @@ suite.describe 'Using a custom multiplier'
 suite.it 'Should transmit 3 when receiving 2'
 suite.send.data 'by', 1.5
 suite.send.data 'in', 2
-suite.receive.data 'out', 3
+suite.receive.data 'out', (result, chai) ->
+  chai.expect(result).to.equal 3
 
 suite.export module
