@@ -81,9 +81,25 @@ Regiter a disconnection event for a given input port.
 
 Once you have set up the desired inputs for a scenario, you should use *it* to describe the desired output. Then you can register the output events you want to see happen:
 
+**suite.receive.connect(port)**
+
+Expect a *connect* message.
+
+**suite.receive.beginGroup(port, data)**
+
+Expect the beginning of a group. If `data` is a function it will be passed the received value and the instance of [Chai](http://chaijs.com/) used in the tests.
+
 **suite.receive.data(port, data)**
 
-Expect to receive matching data from the output port.
+Expect to receive matching data from the output port. If `data` is a function it will be passed the received value the instance of [Chai](http://chaijs.com/) used in the tests.
+
+**suite.receive.endGroup(port)**
+
+Expect a *endgroup* message.
+
+**suite.receive.disconnect(port)**
+
+Expect a *disconnect* message.
 
 #### Ending a scenario
 
