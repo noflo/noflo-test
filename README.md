@@ -126,6 +126,18 @@ Now running:
 
 Will first check your component sources for CoffeeScript coding standards compliance, and then run all the noflo-test component tests you have in your test directory.
 
+### Running tests with Grunt
+
+The other option is to run NoFlo tests via the provided Grunt plugin:
+
+    grunt.initConfig({
+      noflo_test: {
+        components: {
+          src: ['test/*.coffee']
+        }
+      }
+    });
+
 ### Travis integration
 
 [Travis CI](https://travis-ci.org/) provides a free Continuous Integration environment for open source code hosted on GitHub. If that applies to the components you're writing, it is a good idea to enable Travis for your library.

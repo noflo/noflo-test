@@ -13,18 +13,18 @@ module.exports = ->
             value: 80
             level: 'warn'
 
-    # BDD tests on Node.js
-    cafemocha:
+    # Tests on Node.js
+    noflo_test:
       nodejs:
         src: ['test/*.coffee']
-        options:
-          reporter: 'spec'
-          ui: 'exports'
 
+  # Load local tasks
+  @loadTasks 'tasks'
+
+  # Load installed tasks
   @loadNpmTasks 'grunt-coffeelint'
-  @loadNpmTasks 'grunt-cafe-mocha'
 
   @registerTask 'test', [
     'coffeelint'
-    'cafemocha'
+    'noflo_test'
   ]
