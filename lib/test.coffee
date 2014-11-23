@@ -163,7 +163,7 @@ class ComponentSuite
     if @customGetInstance
       callback @customGetInstance()
       return
-    @loader.load @subject, (instance) ->
+    @loader.load @subject, (err, instance) ->
       callback instance
 
   # Export to external Mocha runner
