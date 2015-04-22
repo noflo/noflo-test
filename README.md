@@ -31,6 +31,16 @@ Here is an example test file against the NoFlo core component *SplitArray*:
 
 In a typical case, this is all you need to test a component!
 
+CoffeeScript also allows for a parens free method chain :
+
+    test.component 'SplitArray'
+      .describe 'When receiving an array with two cells'
+        .send.data 'in', ['foo', 'bar']
+      .it 'Should send each cell out as a separate package'
+        .receive.data 'out', 'foo'
+        .receive.data 'out', 'bar'
+      .export module
+      
 ## Test API
 
 The noflo-test library exposes one method as the entry point:
