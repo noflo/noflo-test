@@ -9,12 +9,17 @@ var mochaBin = path.resolve(mochaPath, './bin/mocha');
 
 // Allow requiring files without the .js extension
 require.extensions[''] = require.extensions['.js'];
-
-// Execute it
-var runner = childProcess.spawn(mochaBin, [
+console.log(process.argv);
+var args = [
   '--compilers', 'coffee:coffee-script/register',
   '--reporter', 'spec',
-  '--ui', 'exports']);
+  '--ui', 'exports'
+];
+if(process.argv.length === 3) {
+  args.push(process.argv[2]);
+}
+// Execute it
+var runner = childProcess.spawn(mochaBin, args);
 
 runner.stdout.setEncoding('utf8');
 runner.stderr.setEncoding('utf8');
