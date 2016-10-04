@@ -15,9 +15,15 @@ var args = [
   '--reporter', 'spec',
   '--ui', 'exports'
 ];
-if(process.argv.length === 3) {
-  args.push(process.argv[2]);
+
+// Add extra any extra args provided to node noflo-test
+if(process.argv.length > 2) {
+  for (var i = 2; i < process.argv.length; i++) {
+    args.push(process.argv[i]);
+  }
 }
+
+
 // Execute it
 var runner = childProcess.spawn(mochaBin, args);
 
