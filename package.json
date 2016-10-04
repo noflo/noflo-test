@@ -12,7 +12,8 @@
     "coffee-script": "1.7.x",
     "underscore": "1.4.x",
     "noflo": "~0.7.8",
-    "chai": "^1.9.1"
+    "chai": "^1.9.1",
+    "fbp-manifest": "git://github.com/flowbased/fbp-manifest.git#8e67c1f14fceb15bf2008e18510833025b9ab2a7"
   },
   "devDependencies": {
     "coffeelint": "*",
