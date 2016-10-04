@@ -21,6 +21,9 @@ subscribeOutports = (callback, topic, outCommands) ->
       if typeof command.data is 'function'
         command.data result.data, chai
         continue
+      else if Array.isArray(command.data)
+        chai.expect(result.data).to.deep.equal command.data
+        continue
       chai.expect(result.data).to.equal command.data
     callback null, topic
 
