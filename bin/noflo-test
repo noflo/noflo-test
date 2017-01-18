@@ -10,11 +10,22 @@ var mochaBin = path.resolve(mochaPath, './bin/mocha');
 // Allow requiring files without the .js extension
 require.extensions[''] = require.extensions['.js'];
 
-// Execute it
-var runner = childProcess.spawn(mochaBin, [
+var args = [
   '--compilers', 'coffee:coffee-script/register',
   '--reporter', 'spec',
-  '--ui', 'exports']);
+  '--ui', 'exports'
+];
+
+// Add extra any extra args provided to node noflo-test
+if(process.argv.length > 2) {
+  for (var i = 2; i < process.argv.length; i++) {
+    args.push(process.argv[i]);
+  }
+}
+
+
+// Execute it
+var runner = childProcess.spawn(mochaBin, args);
 
 runner.stdout.setEncoding('utf8');
 runner.stderr.setEncoding('utf8');
