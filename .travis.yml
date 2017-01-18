@@ -1,8 +1,15 @@
 language: node_js
 node_js:
-  - "4.6"
-
+- '4.6'
 before_script:
-  - npm install -g grunt-cli
-  - grunt test
-script: ./bin/noflo-test test
+- npm install -g grunt-cli
+- grunt test
+script: "./bin/noflo-test test"
+deploy:
+  provider: npm
+  email: henri.bergius@iki.fi
+  api_key:
+    secure: lCvVFcJRpL2KLndTSfRlb7ZD9XbMPNcePLP4bnWzEPN1ool0alyounn2SDlitJxfpplDPoqZ14VAbyTlgkLdxBXhtw1MqyOZ5PNtvl4l8rdIfIJQ53AJ7Z0tVrTfXuMDtZdUaW6n6ql/qX+E4rN3j74jTWwLVPbpamxIF/xt3W8=
+  on:
+    tags: true
+    repo: noflo/noflo-test
