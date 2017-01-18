@@ -8,17 +8,17 @@
     "test"
   ],
   "dependencies": {
-    "mocha": "1.18.2",
-    "coffee-script": "1.7.x",
-    "underscore": "1.4.x",
-    "noflo": "~0.5.0",
-    "chai": "^1.9.1"
+    "mocha": "3.2.0",
+    "coffee-script": "~1.12.2",
+    "underscore": "~1.8.3",
+    "noflo": "~0.7.9",
+    "chai": "^3.5.0"
   },
   "devDependencies": {
     "coffeelint": "*",
-    "noflo-objects": "~0.1.2",
-    "grunt": "^0.4.5",
-    "grunt-coffeelint": "0.0.10"
+    "noflo-objects": "~0.2.0",
+    "grunt": "^1.0.1",
+    "grunt-coffeelint": "0.0.16"
   },
   "main": "./index.js",
   "bin": {
