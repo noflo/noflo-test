@@ -7,6 +7,11 @@
     "noflo",
     "test"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noflo/noflo-test.git"
+  },
   "dependencies": {
     "mocha": "^3.2.0",
     "coffee-script": "^1.12.2",
