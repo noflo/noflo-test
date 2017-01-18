@@ -1,7 +1,7 @@
 {
   "name": "noflo-test",
   "description": "NoFlo component testing library",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "keywords": [
     "gruntplugin",
     "noflo",
