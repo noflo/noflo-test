@@ -16,7 +16,7 @@
     "mocha": "^3.2.0",
     "coffee-script": "^1.12.2",
     "underscore": "^1.8.3",
-    "noflo": "^0.7.9",
+    "noflo": "^0.8.0",
     "chai": "^3.5.0"
   },
   "devDependencies": {
