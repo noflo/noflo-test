@@ -20,7 +20,7 @@
     "chai": "^3.5.0"
   },
   "devDependencies": {
-    "noflo-objects": "^0.2.0",
+    "noflo-objects": "^0.3.0",
     "grunt": "^1.0.1",
     "grunt-coffeelint": "^0.0.16"
   },
