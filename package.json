@@ -17,7 +17,7 @@
     "coffee-script": "^1.12.2",
     "underscore": "^1.8.3",
     "noflo": "^0.8.0",
-    "chai": "^3.5.0"
+    "chai": "^4.0.0"
   },
   "devDependencies": {
     "noflo-objects": "^0.3.0",
