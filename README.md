@@ -5,6 +5,8 @@ This library provides a fluent, chainable API for testing [NoFlo](http://noflojs
 
 Most NoFlo components are designed to be reusable between different projects, and so having a good set of unit tests for them is vital.
 
+**Note:** with modern NoFlo projects it is recommended to use [fbp-spec](https://github.com/flowbased/fbp-spec) instead of this library.
+
 ## Installation
 
 Add noflo-test into your component's development dependencies:
