@@ -29,6 +29,6 @@
     "noflo-test": "./bin/noflo-test"
   },
   "scripts": {
-    "test": "./bin/noflo-test test"
+    "test": "./bin/noflo-test test/*.coffee"
   }
 }
