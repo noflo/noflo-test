@@ -3,7 +3,6 @@
   "description": "NoFlo component testing library",
   "version": "0.1.0",
   "keywords": [
-    "gruntplugin",
     "noflo",
     "test"
   ],
@@ -20,15 +19,15 @@
     "chai": "^4.0.0"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-coffeelint": "^0.0.16",
-    "noflo-objects": "^0.3.0"
+    "coffeelint": "^2.0.7",
+    "noflo-objects": ">=0.3.0"
   },
   "main": "./index.js",
   "bin": {
     "noflo-test": "./bin/noflo-test"
   },
   "scripts": {
+    "pretest": "coffeelint -r lib",
     "test": "./bin/noflo-test test/*.coffee"
   }
 }
