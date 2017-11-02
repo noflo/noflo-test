@@ -3,7 +3,6 @@
   "description": "NoFlo component testing library",
   "version": "0.1.0",
   "keywords": [
-    "gruntplugin",
     "noflo",
     "test"
   ],
@@ -13,22 +12,22 @@
     "url": "https://github.com/noflo/noflo-test.git"
   },
   "dependencies": {
+    "coffeescript": "^2.0.2",
     "mocha": "^4.0.0",
-    "coffee-script": "^1.12.2",
     "underscore": "^1.8.3",
     "noflo": "^0.8.0",
     "chai": "^4.0.0"
   },
   "devDependencies": {
-    "noflo-objects": "^0.3.0",
-    "grunt": "^1.0.1",
-    "grunt-coffeelint": "^0.0.16"
+    "coffeelint": "^2.0.7",
+    "noflo-objects": ">=0.3.0"
   },
   "main": "./index.js",
   "bin": {
     "noflo-test": "./bin/noflo-test"
   },
   "scripts": {
-    "test": "./bin/noflo-test test"
+    "pretest": "coffeelint -r lib",
+    "test": "./bin/noflo-test test/*.coffee"
   }
 }

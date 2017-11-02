@@ -7,11 +7,8 @@ var path = require('path');
 var mochaPath = path.dirname(require.resolve('mocha'));
 var mochaBin = path.resolve(mochaPath, './bin/mocha');
 
-// Allow requiring files without the .js extension
-require.extensions[''] = require.extensions['.js'];
-
 var args = [
-  '--compilers', 'coffee:coffee-script/register',
+  '--require', 'coffeescript/register',
   '--reporter', 'spec',
   '--ui', 'exports'
 ];

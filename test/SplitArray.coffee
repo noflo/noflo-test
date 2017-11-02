@@ -1,6 +1,6 @@
 test = require '../index'
 
-test.component('SplitArray').
+test.component('objects/SplitArray').
   describe('When receiving an array with two cells').
     send.data('in', ['foo', 'bar']).
     it('Should send each cell out as a separate package').
