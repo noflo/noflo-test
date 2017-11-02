@@ -11,7 +11,7 @@ var mochaBin = path.resolve(mochaPath, './bin/mocha');
 require.extensions[''] = require.extensions['.js'];
 
 var args = [
-  '--compilers', 'coffee:coffee-script/register',
+  '--require', 'coffee:coffee-script/register',
   '--reporter', 'spec',
   '--ui', 'exports'
 ];
