@@ -127,7 +127,7 @@ There are many test frameworks for Node.js, each with their own way of being inv
 
     "scripts":    {
       "pretest": "./node_modules/.bin/coffeelint -r components",
-      "test": "./bin/noflo-test test"
+      "test": "./bin/noflo-test test/*.coffee"
     }
 
 Now running:
@@ -135,18 +135,6 @@ Now running:
     $ npm test
 
 Will first check your component sources for CoffeeScript coding standards compliance, and then run all the noflo-test component tests you have in your test directory.
-
-### Running tests with Grunt
-
-The other option is to run NoFlo tests via the provided Grunt plugin:
-
-    grunt.initConfig({
-      noflo_test: {
-        components: {
-          src: ['test/*.coffee']
-        }
-      }
-    });
 
 ### Travis integration
 
@@ -156,7 +144,7 @@ To do so, login to the Travis website, and enable it for your repository. Then a
 
     language: node_js
     node_js:
-      - "0.10"
+      - "6"
     script: npm test
 
 Now each time you push your project to GitHub it will be automatically tested on Travis against various different Node.js versions (tune the version numbers in the file according to your needs).
