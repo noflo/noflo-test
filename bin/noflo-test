@@ -8,7 +8,7 @@ var mochaPath = path.dirname(require.resolve('mocha'));
 var mochaBin = path.resolve(mochaPath, './bin/mocha');
 
 var args = [
-  '--require', 'coffee-script/register',
+  '--require', 'coffeescript/register',
   '--reporter', 'spec',
   '--ui', 'exports'
 ];
